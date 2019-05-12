@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Box } from 'grommet'
+import {
+    Box,
+    Image,
+    Heading,
+    Text
+} from 'grommet'
 
 class CheckoutPage extends Component {
     componentDidMount() {
@@ -8,15 +13,33 @@ class CheckoutPage extends Component {
     }
     render() {
         const {
-            cartItems,
+            cartItems
         } = this.props
         return (
             <Box direction="row" pad="small">
                 <Box width="medium">
                     {
                         cartItems.map((product) => (
-                            <Box width="medium">
-                                {product.name} x {product.amount} = {product.totalPrice}
+                            <Box
+                                direction="row"
+                                basis="medium"
+                                pad="small"
+                            >
+                                <Box>
+                                    <Box>
+                                        <Box height="small">
+                                            <Image fit="cover" src={product.image} />
+                                        </Box>
+                                    </Box>
+                                    <Box align="center">
+                                        <Heading textAlign="center" level={4} margin={{ vertical: 'xsmall' }}>
+                                            {product.name}
+                                        </Heading>
+                                        <Text textAlign="center">
+                                            {product.quantity} x {product.amount} = {product.totalPrice}
+                                        </Text>
+                                    </Box>
+                                </Box>
                             </Box>
                         ))
                     }

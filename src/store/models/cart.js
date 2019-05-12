@@ -57,9 +57,10 @@ export const cart = {
         return {
           id: item.id,
           productId: item.product_id,
-          amount: item.quantity,
+          quantity: item.quantity,
+          amount: item.meta.display_price.with_tax.unit.formatted,
           name: item.name,
-          image: 'https://via.placeholder.com/300x400.png',
+          image: item.image.href,
           totalPrice: item.meta.display_price.with_tax.value.formatted,
           pricePerUnit: item.meta.display_price.with_tax.unit.formatted
         }
