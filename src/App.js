@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Grommet, Box, TextInput } from 'grommet'
+import { Grommet, Box } from 'grommet'
 import AppBar from './components/AppBar'
 import './App.css';
 import ProductListPage from './pages/ProductListPage'
 import CheckoutPage from './pages/CheckoutPage'
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 class App extends Component {
   render() {

@@ -12,31 +12,6 @@ export const cart = {
   },
   reducers: {
     // handle state changes with pure functions
-    addItem(state, payload) {
-      const item = state.cartItems.find(o => o.productId === payload);
-      if (item) {
-        const cartItems = state.cartItems.map(o => {
-          if (o.productId === payload) {
-            return {
-              ...o,
-              amount: o.amount + 1
-            }
-          }
-          return o
-        })
-        return {
-          ...state,
-          cartItems
-        }
-      }
-      return {
-        ...state,
-        cartItems: [{
-          productId: payload,
-          amount: 1
-        }, ...state.cartItems]
-      }
-    },
     deleteItem(state, payload) {
       return state
     },
@@ -46,14 +21,35 @@ export const cart = {
         cartItems: payload
       }
     },
-    setTotalPrice(state, payload){
-return{
-  ...state,
-  totalPrice: payload
-}
+    setTotalPrice(state, payload) {
+      return {
+        ...state,
+        totalPrice: payload
+      }
     }
   },
   effects: (dispatch) => ({
+    async addItemAsync(id) {
+      let headers = {
+        'Content-Type': 'application/json',
+      }
+      let data = {
+        "data": {
+          "type": "cart_item",
+          "id": id,
+          "quantity": 1
+        }
+      }
+      const res = await request.post('/carts/123456/items', data, { headers: headers });
+      console.log(res.data);
+      dispatch.cart.getCartItemsAsync()
+    },
+    async deleteItemAsync(id) {
+      console.log(id);
+      const res = await request.delete('carts/123456/items/' + id);
+      console.log(res.data);
+      dispatch.cart.getCartItemsAsync()
+    },
     async getCartItemsAsync() {
       const res = await request.get('/carts/123456/items');
       console.log(res.data);

@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { Box } from 'grommet';
 import { connect } from 'react-redux';
+import CartItem from './CartItem';
 
 class CartItemList extends Component {
   render() {
@@ -9,11 +10,11 @@ class CartItemList extends Component {
     } = this.props
     return (
       <Box pad="small">
-        {cartItems.map(item => (
-          <Box pad="small">
-            {item.productId} x {item.amount}
-          </Box>
-        ))}
+        {
+          cartItems.map((product) => (
+            <CartItem {...product} />
+          ))
+        }
       </Box>
     )
   }

@@ -14,10 +14,10 @@ class ProductItem extends React.Component {
   handleAddToCart = () => {
     console.log('Add to cart')
     const {
-      addItem,
-      name
+      addItemAsync,
+      id
     } = this.props;
-    addItem(name)
+    addItemAsync(id);
   }
   render() {
     const { name, description, image, price } = this.props
@@ -38,13 +38,13 @@ class ProductItem extends React.Component {
           </Stack>
         </Box>
         <Box align="center">
-          <Heading textAlign="center" level={4} margin={{vertical: 'xsmall'}}>
+          <Heading textAlign="center" level={4} margin={{ vertical: 'xsmall' }}>
             {name}
           </Heading>
           <Text textAlign="center">
             {description}
           </Text>
-          <Button primary pad="small" margin="small" icon={<Shop />} label="Add to cart" onClick={this.handleAddToCart}/>
+          <Button primary pad="small" margin="small" icon={<Shop />} label="Add to cart" onClick={this.handleAddToCart} />
         </Box>
       </Box>
     )
@@ -59,7 +59,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    addItem: dispatch.cart.addItem
+    addItemAsync: dispatch.cart.addItemAsync
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ProductItem)

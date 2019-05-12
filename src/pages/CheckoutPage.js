@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Grommet, Box, TextInput } from 'grommet'
+import { Box } from 'grommet'
 
 class CheckoutPage extends Component {
-    componentDidMount(){
+    componentDidMount() {
         this.props.getCartItems();
     }
     render() {
