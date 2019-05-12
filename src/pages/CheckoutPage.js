@@ -7,10 +7,19 @@ class CheckoutPage extends Component {
         this.props.getCartItems();
     }
     render() {
+        const {
+            cartItems,
+        } = this.props
         return (
             <Box direction="row" pad="small">
                 <Box width="medium">
-                    cart items
+                    {
+                        cartItems.map((product) => (
+                            <Box width="medium">
+                                {product.name} x {product.amount} = {product.totalPrice}
+                            </Box>
+                        ))
+                    }
                 </Box>
                 <Box flex>
                     form

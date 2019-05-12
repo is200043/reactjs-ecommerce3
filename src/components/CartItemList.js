@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
-import { Box } from 'grommet';
+import { Box, Button } from 'grommet';
 import { connect } from 'react-redux';
-import CartItem from './CartItem';
+import { Close } from 'grommet-icons';
 
 class CartItemList extends Component {
+  handleDeleteToCart = (id) => {
+      console.log('Delete to cart')
+      const {
+          deleteItemAsync
+      } = this.props;
+      deleteItemAsync(id);
+  }
   render() {
     const {
       cartItems,
@@ -12,7 +19,17 @@ class CartItemList extends Component {
       <Box pad="small">
         {
           cartItems.map((product) => (
-            <CartItem {...product} />
+            <Box style={{ width: 350 }} pad="small" border="bottom" >
+            <Box direction="row" >
+                <Box pad="small">
+                    {product.name} x {product.amount} = {product.totalPrice} Baht
+                </Box>
+                <Button
+                    icon={<Close />}
+                    pad="small"
+                    onClick={(e) => this.handleDeleteToCart(product.id)}></Button>
+            </Box>
+        </Box>
           ))
         }
       </Box>
@@ -21,7 +38,12 @@ class CartItemList extends Component {
 }
 const mapStateToProps = state => {
   return {
-    cartItems: state.cart.cartItems,
+    cartItems: state.cart.cartItems
   }
 }
-export default connect(mapStateToProps)(CartItemList)
+const mapDispatchToProps = dispatch => {
+  return {
+      deleteItemAsync: dispatch.cart.deleteItemAsync
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(CartItemList)
