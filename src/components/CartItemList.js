@@ -22,7 +22,8 @@ class CartItemList extends Component {
             <Box style={{ width: 350 }} pad="small" border="bottom" >
             <Box direction="row" >
                 <Box pad="small">
-                    {product.name} x {product.amount} = {product.totalPrice} Baht
+                    {product.name} <br/>
+                    {product.quantity} x {product.amount} = {product.totalPrice}
                 </Box>
                 <Button
                     icon={<Close />}

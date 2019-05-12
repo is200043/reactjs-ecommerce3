@@ -4,12 +4,39 @@ import {
     Box,
     Image,
     Heading,
-    Text
+    Text,
+    TextInput,
+    Button
 } from 'grommet'
 
 class CheckoutPage extends Component {
     componentDidMount() {
         this.props.getCartItems();
+    }
+    state = {
+        email: '',
+        first_name: '',
+        last_name: '',
+        company_name: '',
+        line_1: '',
+        line_2: '',
+        city: '',
+        postcode: '',
+        county: '',
+        country: '',
+        phone_number: '',
+        instructions: ''
+    }
+    handleChange = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+    handleCheckoutSubmit = (e) => {
+        const {
+            checkout
+        } = this.props;
+        checkout(this.state);
     }
     render() {
         const {
@@ -45,7 +72,91 @@ class CheckoutPage extends Component {
                     }
                 </Box>
                 <Box flex>
-                    form
+                    <Box
+                        direction="row"
+                        pad="medium"
+                        fill
+                    >
+                        <Box width="flex">
+                            <Box direction="row" margin="xxsmall">
+                                <TextInput
+                                    name="email"
+                                    placeholder="Email"
+                                    type="mail"
+                                    onChange={this.handleChange} />
+                            </Box>
+                            <Box direction="row" margin="xxsmall">
+                                <TextInput
+                                    name="first_name"
+                                    placeholder="Firstname"
+                                    onChange={this.handleChange} />
+
+                                <TextInput
+                                    name="last_name"
+                                    placeholder="Lastname"
+                                    onChange={this.handleChange} />
+                            </Box>
+                            <Box direction="row" margin="xxsmall">
+                                <TextInput
+                                    name="company_name"
+                                    placeholder="Company Name"
+                                    onChange={this.handleChange} />
+                            </Box>
+                            <Box direction="row" margin="xxsmall">
+                                <TextInput
+                                    name="line_1"
+                                    placeholder="Address Line 1"
+                                    onChange={this.handleChange} />
+                            </Box>
+                            <Box direction="row" margin="xxsmall">
+                                <TextInput
+                                    name="line_2"
+                                    placeholder="Address Line 2"
+                                    onChange={this.handleChange} />
+                            </Box>
+                            <Box direction="row" margin="xxsmall">
+                                <TextInput
+                                    name="city"
+                                    placeholder="City"
+                                    onChange={this.handleChange} />
+                            </Box>
+                            <Box direction="row" margin="xxsmall">
+                                <TextInput
+                                    name="postcode"
+                                    placeholder="Postcode"
+                                    onChange={this.handleChange} />
+                            </Box>
+                            <Box direction="row" margin="xxsmall">
+                                <TextInput
+                                    name="county"
+                                    placeholder="County"
+                                    onChange={this.handleChange} />
+                            </Box>
+                            <Box direction="row" margin="xxsmall">
+                                <TextInput
+                                    name="country"
+                                    placeholder="Country"
+                                    onChange={this.handleChange} />
+                            </Box>
+                            <Box direction="row" margin="xxsmall">
+                                <TextInput
+                                    name="phone_number"
+                                    placeholder="Phone Number"
+                                    onChange={this.handleChange} />
+                            </Box>
+                            <Box direction="row" margin="xxsmall">
+                                <TextInput
+                                    name="instructions"
+                                    placeholder="Instructions"
+                                    onChange={this.handleChange} />
+                            </Box>
+                            <Button
+                                primary
+                                onClick={this.handleCheckoutSubmit}
+                                label="Submit"
+                            />
+                        </Box>
+                    </Box >
                 </Box>
             </Box>
         );
@@ -59,7 +170,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        getCartItems: dispatch.cart.getCartItemsAsync
+        getCartItems: dispatch.cart.getCartItemsAsync,
+        checkout: dispatch.cart.checkoutAsync
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(CheckoutPage);

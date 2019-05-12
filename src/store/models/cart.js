@@ -68,6 +68,45 @@ export const cart = {
       const totalPrice = res.data.meta.display_price.with_tax.amount / 100
       dispatch.cart.setCartItems(cleanData)
       dispatch.cart.setTotalPrice(totalPrice)
-    }
+    },
+    async checkoutAsync(state) {
+      let headers = {
+        'Content-Type': 'application/json',
+      }
+      let data = {
+        "data": {
+          "customer": {
+            "email": state.email,
+            "name": state.first_name + ' ' + state.last_name
+          },
+          "billing_address": {
+            "first_name": state.first_name,
+            "last_name": state.last_name,
+            "company_name": state.company_name,
+            "line_1": state.line_1,
+            "line_2": state.line_2,
+            "city": state.city,
+            "postcode": state.postcode,
+            "county": state.county,
+            "country": state.country
+          },
+          "shipping_address": {
+            "first_name": state.first_name,
+            "last_name": state.last_name,
+            "company_name": state.company_name,
+            "phone_number": state.phone_number,
+            "line_1": state.line_1,
+            "line_2": state.line_2,
+            "city": state.city,
+            "postcode": state.postcode,
+            "county": state.county,
+            "country": state.country,
+            "instructions": state.instructions,
+          }
+        }
+      }
+      const res = await request.post('/carts/123456/checkout', data, { headers: headers });
+      console.log(res.data);
+    },
   })
 }
