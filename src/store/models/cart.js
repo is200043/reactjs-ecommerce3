@@ -51,7 +51,7 @@ export const cart = {
       dispatch.cart.getCartItemsAsync()
     },
     async getCartItemsAsync() {
-      const res = await request.get('/carts/123456/items');
+      const res = await request.get('/carts/123456/items?include=product')
       console.log(res.data);
       const cleanData = res.data.data.map((item) => {
         return {
@@ -64,7 +64,9 @@ export const cart = {
           pricePerUnit: item.meta.display_price.with_tax.unit.formatted
         }
       })
+      const totalPrice = res.data.meta.display_price.with_tax.amount / 100
       dispatch.cart.setCartItems(cleanData)
+      dispatch.cart.setTotalPrice(totalPrice)
     }
   })
 }
